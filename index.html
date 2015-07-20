@@ -15,19 +15,19 @@ html, body, #map {
 #results{
   bottom: 20px;
   left: 20px;
-  width: 300px;
-  height: 90px;
+  width: 400px;
+  height: 110px;
 }
 
 #cutBtn{
   background-color: white;
   color: black;
+  font-size: 110%;
 }    
     
 #title{
   top: 20px;
   width: 50%; 
-  height: 50px;;
   padding-top: 5px;
   text-align: center;
   margin: 0 0 0 25%;
@@ -85,9 +85,9 @@ require(["esri/map",
   var initExtent = new Extent(-13056650, 6077558, -13055709, 6077938, new SpatialReference({wkid:3857}));
     
   //Instructions for using the app. Will update based on user behavior    
-  var drawInstructions = "Click outside the selected feature to begin drawing cutting line. Double-click to finish line and make final cut.";
-  var initInstructions = "Select a feature by clicking on it.";
-  var clickInstructions = "Choose editing operation below.";
+  var initInstructions = "1. Select a feature by clicking on it.";
+  var clickInstructions = "2. Choose editing operation below.";
+  var drawInstructions = "3. Click outside the selected feature to begin drawing cutting line. Double-click to finish line and make final cut.";
 
   map = new Map("map", {
     basemap: "satellite",
@@ -95,10 +95,10 @@ require(["esri/map",
   });
     
   //Layer symbology    
-  var orchardSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([175, 255, 155]), 2), new Color([175, 255, 155, 0.3]));
+  var orchardSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([175, 255, 155]), 4), new Color([175, 255, 155, 0.3]));
   var selectionSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL, new Color("black"), 3), new Color([255, 255, 255, 0.25]));
   var offsetSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASH, new Color([0,0,0]), 2), new Color([96, 252, 219, 0.5]));
-  var cutterSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASH, new Color("white"), 2);
+  var cutterSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASH, new Color("white"), 6);
   var renderer = new SimpleRenderer (orchardSym);
     
   //Get FeatureLayer created from FeatureCollection stored on the client through data/orchards
@@ -108,7 +108,7 @@ require(["esri/map",
     
   //Create graphics layer for labeling
   var displayLabels = new GraphicsLayer();
-  var labelFont = new Font(14, Font.STYLE_NORMAL, Font.VARIANT_NORMAL, Font.WEIGHT_BOLD, "Verdana");    
+  var labelFont = new Font(25, Font.STYLE_NORMAL, Font.VARIANT_NORMAL, Font.WEIGHT_BOLD, "Verdana");    
   var textSym = new TextSymbol("filler text", labelFont, new Color([128,0,0]));
     
   //Create selection layer to display selection symbol
@@ -384,10 +384,12 @@ require(["esri/map",
 <body>
   <div id="map">
     <div class="mainStyle" id="title"><h2>Apple Orchards</h2></div>
-    <div class="mainStyle" id="results"><span id="instructions">Select a feature by clicking on it.</span><br><br>
-    <button id="cutBtn">Cut Features</button><br><br>
-<!--    <button id="mergeBtn">Merge Features</button>-->
+    <div class="mainStyle" id="results">
+      <span id="instructions">1. Select a feature by clicking on it.</span>
+      <br>
+      <button id="cutBtn">Cut Features</button><br><br>
+      <!-- <button id="mergeBtn">Merge Features</button> -->
+    </div>
   </div>
-</div>
 </body>
 </html>
